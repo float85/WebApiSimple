@@ -40,7 +40,6 @@
         android:text="Get Json" />
 
     <ProgressBar
-
         android:id="@+id/prBar"
         android:layout_width="50dp"
         android:layout_height="50dp"

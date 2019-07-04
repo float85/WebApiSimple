@@ -1,5 +1,6 @@
 package com.vpbank.webapisimple;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.vpbank.webapisimple.weather.WeatherHttpClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,10 +22,12 @@ import java.net.URLConnection;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+    WeatherHttpClient weatherHttpClient;
     TextView tvJson, tvJsonAray, tvJsonArayAPI;
     Button btnGetAPI;
     ProgressBar progressBar;
     String urlApi = "https://demo9377585.mockable.io/getProduct";
+    String urlApinew = "http://api.openweathermap.org/data/2.5/weather?q=hanoi&units=metric&appid=211ff006de9aba9ddd122331f87cdf8b";
 
     String json = "{ \"id\": \"01\", \"name\": \"Coca\", \"price\": \"66\" }";
     String jArray = "[ { \"id\": \"01\", \"name\": \"Coca\", \"price\": \"66\" }, { \"id\": \"02\", \"name\": \"Pepsi\", \"price\": \"88\" }, { \"id\": \"03\", \"name\": \"Sting\", \"price\": \"99\" }]";
@@ -41,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
         getJsonObject();
 
-        getJsonArray(jArray);
+//        getJsonArray(jArray);
 
         btnGetAPI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DoGetData(urlApi).execute();
-
+                new DoGetData(urlApinew).execute();
+//                new HttpWeacherCity(getBaseContext()).execute(urlApinew);
             }
         });
 
@@ -134,6 +139,41 @@ public class MainActivity extends AppCompatActivity {
             tvJsonArayAPI.setText(result);
             progressBar.setVisibility(View.GONE);
 
+        }
+    }
+
+    public class HttpWeacherCity extends AsyncTask<String, Void, String> {
+        WeatherHttpClient httpClient;
+
+        Context context;
+
+        public HttpWeacherCity(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            httpClient = new WeatherHttpClient(context);
+            int temp = 0;
+
+            try {
+                String strJson = httpClient.getWeatherData(params[0]);
+
+                JSONObject jObj = new JSONObject(strJson);
+                JSONObject subObj = jObj.getJSONObject("main");
+
+                temp = subObj.getInt("temp");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return String.valueOf(temp);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            tvJsonArayAPI.setText(s);
         }
     }
 

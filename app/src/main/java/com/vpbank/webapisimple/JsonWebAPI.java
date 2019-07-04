@@ -26,7 +26,7 @@ public class JsonWebAPI extends AppCompatActivity {
             String temp_min = jsonObject.getString("temp_min");
             String temp_max = jsonObject.getString("temp_max");
 
-            tvJson.setText(String.valueOf(temp) + "\n" + temp_min + "\n" + temp_max);
+            tvJson.setText(temp + "\n" + temp_min + "\n" + temp_max);
         } catch (JSONException e) {
             e.printStackTrace();
         }
