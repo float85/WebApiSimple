@@ -21,6 +21,15 @@ public class JsonWebAPI extends AppCompatActivity {
         setContentView(R.layout.activity_json_web_api);
         tvJson = findViewById(R.id.tvJson);
 
+        //Lấy dữ liệu từ Json Object
+//        getJson();
+
+        // Lấy dữ liệu từ Json Array
+        getJsonArray();
+
+    }
+
+    private void getJson() {
         try {
             JSONObject jsonObject = new JSONObject(json);
 
@@ -32,10 +41,6 @@ public class JsonWebAPI extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-        getJsonArray();
-
     }
 
     private void getJsonArray() {
