@@ -26,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
     TextView tvJson, tvJsonAray, tvJsonArayAPI;
     Button btnGetAPI;
     ProgressBar progressBar;
-    String urlApi = "https://demo9377585.mockable.io/getProduct";
-    String urlApinew = "http://api.openweathermap.org/data/2.5/weather?q=hanoi&units=metric&appid=211ff006de9aba9ddd122331f87cdf8b";
+    String urlApi = "https://demo4855049.mockable.io/getProduct";
+    //    String urlApinew = "http://api.openweathermap.org/data/2.5/weather?q=hanoi&units=metric&appid=211ff006de9aba9ddd122331f87cdf8b";
+    String URL_LOCATION = Defile.URL_HOME + "hanoi" + Defile.UNITS + "metric" + Defile.APPID + Defile.KEY;
 
     String json = "{ \"id\": \"01\", \"name\": \"Coca\", \"price\": \"66\" }";
     String jArray = "[ { \"id\": \"01\", \"name\": \"Coca\", \"price\": \"66\" }, { \"id\": \"02\", \"name\": \"Pepsi\", \"price\": \"88\" }, { \"id\": \"03\", \"name\": \"Sting\", \"price\": \"99\" }]";
@@ -43,15 +44,13 @@ public class MainActivity extends AppCompatActivity {
         btnGetAPI = findViewById(R.id.btnGetJson);
         progressBar = findViewById(R.id.prBar);
 
-
-        getJsonObject();
-
+//        getJsonObject();
 //        getJsonArray(jArray);
 
         btnGetAPI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DoGetData(urlApinew).execute();
+                new DoGetData(urlApi).execute();
 //                new HttpWeacherCity(getBaseContext()).execute(urlApinew);
             }
         });
