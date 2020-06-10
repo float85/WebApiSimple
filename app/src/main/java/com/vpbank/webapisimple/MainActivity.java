@@ -50,12 +50,10 @@ public class MainActivity extends AppCompatActivity {
         btnGetAPI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DoGetData(urlApi).execute();
+                new DoGetData().execute();
 //                new HttpWeacherCity(getBaseContext()).execute(urlApinew);
             }
         });
-
-
     }
 
     private void getJsonObject() {
@@ -97,18 +95,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     class DoGetData extends AsyncTask<Void, Void, Void> {
-        String urlApi;
         String result = "";
-
-        public DoGetData(String urlApi) {
-            this.urlApi = urlApi;
-        }
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressBar.setVisibility(View.VISIBLE);
-
         }
 
         @Override
